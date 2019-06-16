@@ -14,3 +14,6 @@ $("input").keypress(function (event) {
 		inputText = $("input").val("");
 	}
 })
+$("#add").click(function(){
+	$("input").fadeToggle(300);
+})

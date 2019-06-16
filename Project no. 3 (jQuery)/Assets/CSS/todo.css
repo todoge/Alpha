@@ -18,6 +18,9 @@ h1{
     color:white;
     background:#2980b9;
 }
+#add{
+    float: right;
+}
 input {
     font-size: 18px;
     color: #2980b9;
@@ -27,10 +30,9 @@ input {
     box-sizing: border-box;
     border: 3px solid rgba(0,0,0,0);
 }
-    input:focus {
-        outline: none;
-    }
-
+input:focus {
+    outline: none;
+}
 ul{
     list-style:none;
     margin:0;
@@ -58,7 +60,7 @@ li span {
     text-align: center;
     color: white;
     display:inline-block;
-    transition: 0.4s;
+    transition: 0.4s, linear;
     opacity:0;
 }
 li:hover span {
