@@ -1,0 +1,25 @@
+i.icon{
+    font-size:1.5em;
+}
+.container.main{
+    margin-top:7em;
+}
+#show{
+    margin-top: 5em;
+}
+img {
+    display: block;
+    margin: 10px auto 20px;
+}
+#posts{
+    margin-bottom:30px;
+}
+#delete{
+    display:inline;
+}
+#date{
+    margin-bottom:20px;
+}
+body {
+    background-color: #a3b2c9;
+}

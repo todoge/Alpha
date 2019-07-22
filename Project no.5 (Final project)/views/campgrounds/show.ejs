@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead">Yelp Camp</p>
+			<ul class="list-group">
+				<li class="list-group-item active">Category 1</li>
+				<li class="list-group-item">Category 2</li>
+				<li class="list-group-item">Category 3</li>
+			</ul>
+		</div>
+		<div class="col-sm-9">
+			<div class="card">
+				<img class="img-fluid" src="<%= campground.image %>" >
+				<div class="card-body">
+					<div class="d-flex justify-content-between">
+						<h4 class="card-title" ><%= campground.name %></h4>
+						<h4 class="text-right">$9.00/night</h4>
+					</div>
+					<p class="card-text"><%= campground.desc %></p>
+				</div>
+			</div>
+			<div class="card bg-light mt-4 px-3">
+				<p class="text-right">
+					<a class="btn btn-lg btn-success mt-4" href="/campgrounds/<%=campground._id%>/comments/new">New comment</a>
+				</p>
+				<hr>
+				<div class ="row">
+					<div class="col-md-12">
+						<% campground.comments.forEach((comment)=>{ %>
+							<div class="d-flex justify-content-between">
+								<p><%= comment.author %></p>
+								<p>10 days ago</p>
+							</div>
+							<p><%= comment.text %></p>
+						<% }) %>
+					</div>
+				</div>
+			</div>
+			<a href="/campgrounds">View all campgrounds</a>
+		</div>
+	</div>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,3 @@
+C:\Users\Austi\OneDrive\Documents\GitHub\Alpha\Project no. 4 (RESTful routes)\Project no.4\Project no.4\obj\Debug\Project no.4.njsprojAssemblyReference.cache
+C:\Users\Austi\OneDrive\Documents\GitHub\Alpha\Project no. 4 (RESTful routes)\Project no.4\Project no.4\obj\Debug\Project no.4.njsproj.CoreCompileInputs.cache
+C:\Users\Austi\OneDrive\Documents\GitHub\Alpha\Project no. 4 (RESTful routes)\Project no.4\Project no.4\bin\Microsoft.NodejsTools.WebRole.dll
