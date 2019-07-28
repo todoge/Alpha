@@ -18,21 +18,29 @@
 						<h4 class="text-right">$9.00/night</h4>
 					</div>
 					<p class="card-text"><%= campground.desc %></p>
+					<em><p class="card-text">Submitted by <%= campground.author.username %></p></em>
+					<div class="d-flex">
+						<a href="/campgrounds/<%=campground._id%>/edit" class="btn btn-sm btn-warning mr-3">Edit</a>
+						<form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+							<button class="btn btn-sm btn-danger">Delete</a>
+						</form>
+					</div>
 				</div>
 			</div>
+			<%//=======COMMENT SECTION==========%>
 			<div class="card bg-light mt-4 px-3">
 				<p class="text-right">
 					<a class="btn btn-lg btn-success mt-4" href="/campgrounds/<%=campground._id%>/comments/new">New comment</a>
 				</p>
 				<hr>
-				<div class ="row">
+				<div class ="row card-body">
 					<div class="col-md-12">
 						<% campground.comments.forEach((comment)=>{ %>
 							<div class="d-flex justify-content-between">
-								<p><%= comment.author %></p>
+								<p><%= comment.author.username %></p>
 								<p>10 days ago</p>
 							</div>
-							<p><%= comment.text %></p>
+							<p class="border-bottom"><%= comment.text %></p>
 						<% }) %>
 					</div>
 				</div>

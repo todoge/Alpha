@@ -1,92 +1,69 @@
 //Require frameworks and libraries
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const campground = require("./models/campgroundModel");
-const Comment = require("./models/commentsModel");
-app.use(express.static(__dirname + "/public"));
-mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
+const methodOverride = require("method-override");
+
+//Using frameworks
+const app = express();
+app.use(methodOverride("_method"));
+
+//Use BODY-PARSER to collect information from forms
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Require Models
+const campground = require("./models/campgroundModel");
+const Comment = require("./models/commentsModel");
+const User = require("./models/userModel");
+
+//Require PASSPORT and dependencies
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const passportLocalMongoose = require("passport-local-mongoose");
+
+//Serving public directory for assets
+app.use(express.static(__dirname + "/public"));
+
+//CREATING yelp_camp MONGODB database
+mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
+
+//REQUIRE ROUTES
+var campgroundRoute = require("./routes/campground");
+var commentsRoute = require("./routes/comments");
+var authRoute = require("./routes/index");
+
+// PASSPORT CONFIGURATION
+app.use(require("express-session")({
+	secret: "apple sauce",
+	resave: false,
+	saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//middleware to allow Currentuser to be called on every route
+app.use((req, res, next) => {
+	res.locals.currentUser = req.user;
+	next();
+});
+
+//Setting VIEWS DIRECTORY to use ejs template
 app.set("view engine", "ejs");
-var seedDB = require("./seed");
-seedDB();
-//rendering home page
-app.get("/", (req, res) => {
-	res.render("landing");
-});
 
-app.get("/campgrounds/new", (req, res) => {
-	res.render("campgrounds/new");
-});
+//Seeding database with new data
+/*var seedDB = require("./seed");
+seedDB();*/
 
-app.get("/campgrounds", (req, res) => {
-	campground.find({}, (err, campground) => {
-		if (err) {
-			console.log("An error was encountered while displaying a new campground")
-		}
-		else {
-			res.render("campgrounds/campground", { campground: campground });
-		}
-	})
-});
+//USING ROUTES
+app.use("/campgrounds",campgroundRoute);
+app.use("/campgrounds/:id/comments",commentsRoute);
+app.use(authRoute);
 
-app.post("/campgrounds", (req, res) => {
-	var newName = req.body.newName;
-	var newImage = req.body.newImage;
-	var newDesc = req.body.newDesc;
-	var newCampground = { name: newName, image: newImage, desc: newDesc };
-	console.log(newCampground);
-	campground.create(newCampground, (err, newCampground) => {
-		if (err) {
-			console.log("An error was encountered while creating a new campground");
-		}
-		else {
-			res.redirect("/campgrounds");
-		}
-	});
-});
-app.get("/campgrounds/:id", (req, res) => {
-	campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
-		if (err) {
-			console.log("An error was encountered");
-			console.log(err);
-		}
-		else {
-			res.render("campgrounds/show", { campground: foundCampground });
-		}
-	});
-});
-app.get("/campgrounds/:id/comments/new", (req, res) => {
-	campground.findById(req.params.id, (err, campground) => {
-		if (err) {
-			console.log("Campground does not exist");
-		}
-		else {
-			res.render("comments/new", { campground: campground });
-		}
-	})
-})
-app.post("/campgrounds/:id/comments", (req, res) => {
-	campground.findById(req.params.id, (err, campgroundFound) => {
-		if (err) {
-			console.log(err);
-		}
-		else {
-			Comment.create(req.body.Comment, (err, newComment) => {
-				if (err) {
-					console.log(err);
-				}
-				else {
-					campgroundFound.comments.push(newComment);
-					campgroundFound.save();
-					res.redirect("/campgrounds/" + campgroundFound._id);
-				}
-			})
-		}
-	})
-})
-app.listen("3000", "127.0.0.1", (serverStatus) => {
+//Serving port 3000
+app.listen(process.env.PORT || 3000 , process.env.IP, (serverStatus) => {
 	console.log("Server is up!");
 });

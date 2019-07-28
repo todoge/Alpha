@@ -34,7 +34,19 @@
     <Content Include="models\commentsModel.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="models\userModel.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\main.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\campground.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\comments.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\index.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="seed.js">
@@ -49,12 +61,19 @@
     </Content>
     <Content Include="views\landing.ejs" />
     <Content Include="views\campgrounds\new.ejs" />
+    <Content Include="views\login.ejs">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\partials\footer.ejs" />
     <Content Include="views\partials\header.ejs" />
     <Content Include="views\campgrounds\show.ejs" />
+    <Content Include="views\register.ejs">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />
+    <Folder Include="routes\" />
     <Folder Include="public\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="views\" />
