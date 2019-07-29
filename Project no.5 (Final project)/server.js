@@ -3,10 +3,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
+const flash = require("connect-flash");
 
 //Using frameworks
 const app = express();
 app.use(methodOverride("_method"));
+app.use(flash());
 
 //Use BODY-PARSER to collect information from forms
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,9 +47,11 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//middleware to allow Currentuser to be called on every route
+//MIDDLEWARE to be called on every route
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
+	res.locals.success = req.flash("success");
+	res.locals.error = req.flash("error");
 	next();
 });
 

@@ -28,6 +28,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="middleware\index.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="models\campgroundModel.js">
       <SubType>Code</SubType>
     </Content>
@@ -59,6 +62,9 @@
     <Content Include="views\campgrounds\edit.ejs">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\comments\edit.ejs">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\comments\new.ejs">
       <SubType>Code</SubType>
     </Content>
@@ -76,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />
+    <Folder Include="middleware\" />
     <Folder Include="routes\" />
     <Folder Include="public\" />
     <Folder Include="public\stylesheets\" />

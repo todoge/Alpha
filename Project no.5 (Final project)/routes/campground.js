@@ -31,9 +31,11 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 	var newCampground = { name: newName, image: newImage, desc: newDesc, author: author };
 	campground.create(newCampground, (err, newCampground) => {
 		if (err) {
-			console.log("An error was encountered while creating a new campground");
+			req.flash("error", "An unknown error was encountered");
+			res.redirect("back");
 		}
 		else {
+			req.flash("success","Campground successfully added!")
 			res.redirect("/campgrounds");
 		}
 	});
@@ -43,8 +45,8 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 router.get("/:id", (req, res) => {
 	campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
 		if (err) {
-			console.log("An error was encountered");
-			console.log(err);
+			req.flash("error", "An unknown error was encountered");
+			res.redirect("back");
 		}
 		else {
 			res.render("campgrounds/show", { campground: foundCampground });
@@ -56,7 +58,8 @@ router.get("/:id", (req, res) => {
 router.get("/:id/edit", middleware.isAuthorized, (req, res) => {
 	campground.findById(req.params.id, (err, foundCampground) => {
 		if (err) {
-			res.redirect("/");
+			req.flash("error", "An unknown error was encountered");
+			res.redirect("back");
 		}
 		else {
 			res.render("campgrounds/edit", { campground: foundCampground });
@@ -68,6 +71,7 @@ router.get("/:id/edit", middleware.isAuthorized, (req, res) => {
 router.put("/:id", middleware.isAuthorized, (req, res) => {
 	campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
 		if (err) {
+			req.flash("error", "An unknown error was encountered");
 			res.redirect("back");
 		}
 		else {
@@ -80,7 +84,8 @@ router.put("/:id", middleware.isAuthorized, (req, res) => {
 router.delete("/:id", middleware.isAuthorized, (req, res) => {
 	campground.findByIdAndDelete(req.params.id, (err) => {
 		if (err) {
-			res.redirect("/campgrounds");
+			req.flash("error", "An unknown error was encountered while deleting");
+			res.redirect("/");
 		}
 		else {
 			res.redirect("/campgrounds");

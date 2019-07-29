@@ -9,6 +9,7 @@ var middlewareObj = {
 		if (req.isAuthenticated()) {
 			Comment.findById(req.params.comment_id, (err, foundComment) => {
 				if (err) {
+					req.flash("error", "You need to be logged in to do that!")
 					res.redirect("back");
 				}
 				else {
@@ -17,13 +18,15 @@ var middlewareObj = {
 						next();
 					}
 					else {
-						res.send("You are not authorized");
+						req.flash("error", "YOU ARE NOT AUTHORIZED TO DO THAT!");
+						res.redirect("back");
 					}
 				}
 			})
 		}
 		else {
-			res.redirect("back");
+			req.flash("error", "You need to be logged in to do that!")
+			res.redirect("/login");
 		}
 	},
 
@@ -33,6 +36,7 @@ var middlewareObj = {
 			next();
 		}
 		else {
+			req.flash("error","You need to be logged in to do that!")
 			res.redirect("/login");
 		}
 	},
@@ -43,6 +47,7 @@ var middlewareObj = {
 		if (req.isAuthenticated()) {
 			campground.findById(req.params.id, (err, foundCampground) => {
 				if (err) {
+					req.flash("error", "You need to be logged in to do that!")
 					res.redirect("back");
 				}
 				else {
@@ -51,13 +56,15 @@ var middlewareObj = {
 						next();
 					}
 					else {
-						res.send("You are not authorized");
+						req.flash("error", "YOU ARE NOT AUTHORIZED TO DO THAT!");
+						res.redirect("back");
 					}
 				}
 			})
 		}
 		else {
-			res.redirect("back");
+			req.flash("error", "You need to be logged in to do that!")
+			res.redirect("/login");
 		}
 	}
 
