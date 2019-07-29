@@ -56,6 +56,9 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="views\campgrounds\campground.ejs" />
+    <Content Include="views\campgrounds\edit.ejs">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\comments\new.ejs">
       <SubType>Code</SubType>
     </Content>

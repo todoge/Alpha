@@ -64,6 +64,6 @@ app.use("/campgrounds/:id/comments",commentsRoute);
 app.use(authRoute);
 
 //Serving port 3000
-app.listen(process.env.PORT || 3000 , process.env.IP, (serverStatus) => {
+app.listen(process.env.PORT || 3000, process.env.IP, (serverStatus) => {
 	console.log("Server is up!");
 });

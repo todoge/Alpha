@@ -2,9 +2,10 @@
 const router = express.Router({ mergeParams: true });
 const campground = require("../models/campgroundModel");
 const Comment = require("../models/commentsModel");
+const middleware = require("../middleware");
 
-//Creating comments
-router.get("/new", isLoggedIn, (req, res) => {
+//CREATE COMMENTS ROUTE
+router.get("/new", middleware.isLoggedIn, (req, res) => {
 	campground.findById(req.params.id, (err, campground) => {
 		if (err) {
 			console.log("Campground does not exist");
@@ -15,7 +16,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 	})
 });
 
-router.post("/", isLoggedIn, (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
 	campground.findById(req.params.id, (err, campgroundFound) => {
 		if (err) {
 			console.log(err);
@@ -26,11 +27,9 @@ router.post("/", isLoggedIn, (req, res) => {
 					console.log(err);
 				}
 				else {
-					console.log(req.user);
 					newComment.author.id = req.user._id;
 					newComment.author.username = req.user.username;
 					newComment.save();
-					console.log(newComment);
 					campgroundFound.comments.push(newComment);
 					campgroundFound.save();
 					res.redirect("/campgrounds/" + campgroundFound._id);
@@ -40,14 +39,29 @@ router.post("/", isLoggedIn, (req, res) => {
 	})
 });
 
-//middleware to check if user is logged in
-function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated()) {
-		next();
-	}
-	else {
-		res.redirect("/login");
-	}
-};
+//EDIT COMMENTS ROUTE
+router.get("/:comment_id/edit", middleware.isCommentAuthorized, (req, res) => {
+	Comment.findById(req.params.comment_id, (err, foundComment) => {
+		res.render("comments/edit", { campground_id: req.params.id, comment: foundComment })
+	})
+});
+
+router.put("/:comment_id", middleware.isCommentAuthorized, (req, res) => {
+	Comment.findByIdAndUpdate(req.params.comment_id, req.body.Comment, (err, updatedComment) => {
+		res.redirect("/campgrounds/" + req.params.id);
+	})
+});
+
+//DELETE COMMENTS ROUTE
+router.delete("/:comment_id", middleware.isCommentAuthorized, (req, res) => {
+	Comment.findByIdAndDelete(req.params.comment_id, (err) => {
+		if (err) {
+			res.render("back");
+		}
+		else {
+			res.redirect("/campgrounds/" + req.params.id);
+		}
+	})
+});
 
 module.exports = router;

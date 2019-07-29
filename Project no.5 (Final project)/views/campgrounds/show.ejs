@@ -19,15 +19,22 @@
 					</div>
 					<p class="card-text"><%= campground.desc %></p>
 					<em><p class="card-text">Submitted by <%= campground.author.username %></p></em>
-					<div class="d-flex">
-						<a href="/campgrounds/<%=campground._id%>/edit" class="btn btn-sm btn-warning mr-3">Edit</a>
-						<form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
-							<button class="btn btn-sm btn-danger">Delete</a>
-						</form>
-					</div>
+
+					<%//========== DELETE & EDIT BUTTON SECTION ==========%>
+
+					<% if (currentUser && campground.author.id.equals(currentUser._id)){ %>
+						<div class="d-flex">
+							<a href="/campgrounds/<%=campground._id%>/edit" class="btn btn-sm btn-warning mr-2">Edit</a>
+							<form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+								<button class="btn btn-sm btn-danger">Delete</a>
+							</form>
+						</div>
+					<% } %>
 				</div>
 			</div>
-			<%//=======COMMENT SECTION==========%>
+
+			<%//========== COMMENT SECTION ==========%>
+
 			<div class="card bg-light mt-4 px-3">
 				<p class="text-right">
 					<a class="btn btn-lg btn-success mt-4" href="/campgrounds/<%=campground._id%>/comments/new">New comment</a>
@@ -36,11 +43,24 @@
 				<div class ="row card-body">
 					<div class="col-md-12">
 						<% campground.comments.forEach((comment)=>{ %>
-							<div class="d-flex justify-content-between">
-								<p><%= comment.author.username %></p>
+							<div id="commentHeader" class="d-flex justify-content-between">
+								<strong><p><%= comment.author.username %></p></strong>
 								<p>10 days ago</p>
 							</div>
-							<p class="border-bottom"><%= comment.text %></p>
+							<p class="mb-1"><%= comment.text %></p>
+
+							<%//========== EDIT AND DELETE COMMENT SECTION ==========%>
+
+							<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+							<div class="d-flex justify-content-end">
+								<a class="btn btn-sm btn-warning mr-1" href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit">Edit</a>
+								<form action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
+									<button class="btn btn-sm btn-danger">Delete</button>
+								</form>
+							</div>
+							<% } %>
+
+							<hr>
 						<% }) %>
 					</div>
 				</div>
