@@ -27,7 +27,9 @@ const passportLocalMongoose = require("passport-local-mongoose");
 app.use(express.static(__dirname + "/public"));
 
 //CREATING yelp_camp MONGODB database
-mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
+/*mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });*/
+const url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
+mongoose.connect(url, { useNewUrlParser: true });
 
 //REQUIRE ROUTES
 var campgroundRoute = require("./routes/campground");
