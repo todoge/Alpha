@@ -4,7 +4,8 @@
   "description": "Project no.5 (Final project)",
   "main": "server.js",
   "author": {
-    "name": "JS"
+    "name": "JS",
+    "start":"server.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

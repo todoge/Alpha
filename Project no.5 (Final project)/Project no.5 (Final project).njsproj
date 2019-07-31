@@ -40,6 +40,9 @@
     <Content Include="models\userModel.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\landing.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\main.css">
       <SubType>Code</SubType>
     </Content>
