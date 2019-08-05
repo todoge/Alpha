@@ -1,6 +1,6 @@
 ﻿<% include ../partials/header %>
 <div class="container">
-<h1>Edit Campground</h1>
+<h1>Edit <%=campground.name%></h1>
 	<div>
 		<form action="/campgrounds/<%=campground._id%>?_method=PUT" method="post">
 			<div class="form-group">
@@ -12,9 +12,14 @@
 				<input type="text" class="form-control" id="newImage" name="campground[image]" value="<%=campground.image%>">
 			</div>
 			<div class="form-group">
-				<label for"newDesc">Description</label>
-				<input type="text" class="form-control" id="newDesc" name="campground[desc]" value="<%=campground.desc%>">
+				<label for"newPrice">Price</label>
+				<input type="number" class="form-control" id="newPrice" name="campground[price]" value="<%=campground.price%>" step="0.01" min="0.00">
 			</div>
+			<div class="form-group">
+				<label for"newDesc">Description</label>
+				<textarea rows="5" class="form-control" id="newDesc" name="campground[desc]"><%=campground.desc%></textarea>
+			</div>
+			
 			<div class="form-group">
 				<input type="submit" class="btn btn-lg btn-primary">
 			</div>

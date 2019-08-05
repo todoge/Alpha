@@ -7,31 +7,34 @@
 	<link rel="stylesheet" href="/stylesheets/main.css" type="text/css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="nav-brand" href="/">Yelpcamp</a>
-      <div class="collaspe navbar-collapse justify-content-end">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="nav-brand text-white" href="/">Yelpcamp</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
 			<% if (!currentUser){ %>
-			  <li>
-				<a class="nav-item nav-link" href="/login">Sign in</a>
+			  <li class="nav-item">
+				<a class="nav-link text-white" href="/login">Sign in<span class="sr-only">(current)</span></a>
 			  </li>
-			  <li>
-				<a class="nav-item nav-link" href="/register">Sign up</a>
+			  <li class="nav-item">
+				<a class="nav-link text-white" href="/register">Sign up</a>
 			  </li>
 			<% } else { %>
-				<li>
-				<a class="nav-item nav-link">Logged in as <%= currentUser.username %></a>
+				<li class="nav-item">
+				<a class="nav-link text-white">Logged in as <%= currentUser.username %></a>
 			  </li>
-			  <li>
-				<a class="nav-item nav-link" href="/logout">Sign out</a>
+			  <li class="nav-item">
+				<a class="nav-link" href="/logout">Sign out</a>
 			  </li>
 			<% } %>
         </ul>
       </div>
     </div>
   </nav>
-
 <%//========== FLASH MESSAGES ==========%>
 
 <div class="container mt-3">
