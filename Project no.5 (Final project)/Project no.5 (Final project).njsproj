@@ -40,6 +40,7 @@
     <Content Include="models\userModel.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\pictures\bg-jumbotron.jfif" />
     <Content Include="public\stylesheets\landing.css">
       <SubType>Code</SubType>
     </Content>
@@ -86,6 +87,7 @@
   <ItemGroup>
     <Folder Include="models\" />
     <Folder Include="middleware\" />
+    <Folder Include="public\pictures\" />
     <Folder Include="routes\" />
     <Folder Include="public\" />
     <Folder Include="public\stylesheets\" />

@@ -1,14 +1,19 @@
 ﻿<% include ./partials/header %>
-<h1>Login</h1>
-<form action="/login" method="POST">
-	<div class="form-group">
-		<label for="username">Username</label>
-		<input id="username" type="form" name="username" placeholder="Enter username">
+<link rel="stylesheet" href="/stylesheets/authenticate.css">
+<div class="container">
+	<h1 class="mb-3 text-white">Login to YelpCamp</h1>
+	<div class="border border-light p-3">
+	<form action="/login" method="POST">
+		<div class="form-group">
+			<label class="text-white" for="username">Username</label>
+			<input id="username" type="form" name="username" placeholder="Enter username">
+		</div>
+		<div class="form-group">
+			<label class="text-white" for="password">Password</label>
+			<input id="password" type="form" name="password" placeholder="Password">
+		</div>
+		<button class="btn btn-success">Login</button>
 	</div>
-	<div class="form-group">
-		<label for="password">Password</label>
-		<input id="password" type="form" name="password" placeholder="password">
-	</div>
-	<button>Login</button>
+</div>
 </form>
 <% include ./partials/footer %>
