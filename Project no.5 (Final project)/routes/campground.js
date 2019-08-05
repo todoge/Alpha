@@ -24,12 +24,11 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 	var newName = req.body.newName;
 	var newImage = req.body.newImage;
 	var newDesc = req.body.newDesc;
-	var newPrice = req.body.newPrice;
 	var author = {
 		id: req.user._id,
 		username: req.user.username
 	};
-	var newCampground = { name: newName, image: newImage, desc: newDesc, price: newPrice, author: author };
+	var newCampground = { name: newName, image: newImage, desc: newDesc, author: author };
 	campground.create(newCampground, (err, newCampground) => {
 		if (err) {
 			req.flash("error", "An unknown error was encountered");

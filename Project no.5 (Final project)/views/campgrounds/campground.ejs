@@ -1,39 +1,22 @@
 <% include ../partials/header %>
-
-<%//=================Jumbotron=====================%>
-
-
-	<header id="jumbo" class="jumbotron">
-		<div class="container">
-			<h1 class="display-4 text-white mt-3">Campgrounds</h1>
-			<a id="add-campground-btn" href="/campgrounds/new" role="button" class="btn btn-primary btn-lg mt-1">Write A Review!</a>
-		</div>
+<div class="container">
+	<header class="jumbotron mt-5">
+		<h1 class="display-4">Campgrounds</h1>
+		<a href="/campgrounds/new" role="button" class="btn btn-primary btn-lg mt-1">Add a new campground</a>
 	</header>
 
-<%//=================Show all campgrounds as cards=====================%>
-<div class="container">
 	<section class="row">
 	<% campground.forEach((campground)=>{ %>
-		<div class="col-md-3 col-sm-6 d-flex">
-			<div class="card px-0 mb-3 rounded border-dark card-style">
-				<img class="card-img-top img-fluid p-0" src="<%= campground.image %>" >
-				<div class="card-body text-white pb-1 px-2 pt-2 flex-fill">
-					<div class="d-flex flex-column h-100">
-						<p class="card-title"><%= campground.name %></p>
-						<div class="inline d-flex justify-content-between mt-auto">
-							<% if(Number(campground.price) == 0 || isNaN(Number(campground.price))){ %>
-								<span>Free</span>
-							<% } else { %>
-							<span>$<%= Number(campground.price).toFixed(2) %></span>
-							<% } %>
-							<a href="/campgrounds/<%= campground._id %>"class="btn btn-sm btn-outline-info">Show</a>
-						</div>
-					</div>
+		<div class="col-md-3 col-sm-6">
+			<div class="card px-0">
+				<img class="card-img-top img-fluid" src="<%= campground.image %>" >
+				<div class="card-body px-2 pt-2">
+					<h4 class="card-title"><%= campground.name %></h4>
+					<a href="/campgrounds/<%= campground._id %>"class="btn btn-sm btn-primary">Show</a>
 				</div>
 			</div>
 		</div>
 		<%})%>
-
 	</section>
 </div>
 
